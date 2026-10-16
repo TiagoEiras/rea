@@ -1,0 +1,383 @@
+:root {
+  --black: #000;
+  --face: #020d04;
+  --green: #33ff66;
+  --green-bright: #b6ffc8;
+  --green-mid: #1fbf4a;
+  --green-dim: #0b5e22;
+  --green-deep: #052a0f;
+  --bevel-light: #5dff8a;
+  --bevel-dark: #08401a;
+  --font: "VT323", "Fixedsys", "Lucida Console", ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--black);
+  color: var(--green);
+  font-family: var(--font);
+  font-size: 22px;
+  -webkit-font-smoothing: none;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--black);
+  background-image: radial-gradient(var(--green-deep) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* Scanlines and a soft phosphor glow; toggled from Exibir > Efeito CRT. */
+body.crt {
+  text-shadow: 0 0 4px rgb(51 255 102 / 55%);
+}
+
+body.crt::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0%) 0 2px,
+    rgb(0 0 0 / 35%) 2px 3px
+  );
+  z-index: 10;
+}
+
+.desktop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.window {
+  width: min(100%, 420px);
+  background: var(--face);
+  border: 2px solid var(--green);
+  box-shadow: 6px 6px 0 var(--green-dim);
+  color: var(--green);
+  padding: 0;
+}
+
+.titlebar {
+  display: flex;
+  align-items: stretch;
+  background: var(--green);
+  color: var(--black);
+  border-bottom: 2px solid var(--green);
+  text-shadow: none;
+}
+
+.titlebar h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 1em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.control-box,
+.sizer {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  background: var(--black);
+  color: var(--green);
+  border: 2px solid var(--green);
+  margin: -2px;
+  text-shadow: none;
+}
+
+.menubar {
+  display: flex;
+  gap: 4px;
+  padding: 0 6px;
+  border-bottom: 2px solid var(--green-dim);
+}
+
+.menu {
+  position: relative;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  text-shadow: inherit;
+}
+
+.menu-title {
+  background: none;
+  border: 0;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.menu-title[aria-expanded="true"],
+.menu-title:focus-visible {
+  background: var(--green);
+  color: var(--black);
+  text-shadow: none;
+  outline: none;
+}
+
+.menu-items {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  background: var(--black);
+  border: 2px solid var(--green);
+  box-shadow: 4px 4px 0 var(--green-dim);
+  padding: 2px;
+}
+
+.menu-items[hidden] {
+  display: none;
+}
+
+.menu-items button {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background: none;
+  border: 0;
+  padding: 2px 10px 2px 22px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+
+.menu-items button[aria-checked="true"]::before {
+  content: "✓";
+  position: absolute;
+  left: 6px;
+}
+
+.menu-items button:hover,
+.menu-items button:focus-visible {
+  background: var(--green);
+  color: var(--black);
+  text-shadow: none;
+  outline: none;
+}
+
+kbd {
+  font: inherit;
+  opacity: 0.75;
+}
+
+.body {
+  padding: 14px;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 84px;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  background: var(--black);
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light)
+    var(--bevel-dark);
+  overflow: hidden;
+}
+
+.expression {
+  min-height: 1.1em;
+  color: var(--green-mid);
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+.value {
+  font-size: 2.2em;
+  line-height: 1;
+  color: var(--green-bright);
+  white-space: nowrap;
+}
+
+.value.long {
+  font-size: 1.5em;
+}
+
+.value.error {
+  font-size: 1.1em;
+  white-space: normal;
+  text-align: right;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.keys.top {
+  margin-bottom: 14px;
+}
+
+.keys button,
+.about-body button {
+  min-height: 46px;
+  padding: 0;
+  background: var(--face);
+  color: var(--green);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark)
+    var(--bevel-light);
+  box-shadow: 1px 1px 0 var(--black);
+  cursor: pointer;
+  font-size: 1.05em;
+}
+
+.keys button:hover {
+  background: var(--green-deep);
+}
+
+.keys button:focus-visible,
+.about-body button:focus-visible {
+  outline: 1px dotted var(--green-bright);
+  outline-offset: -6px;
+}
+
+.keys button:active,
+.keys button.pressed {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light)
+    var(--bevel-dark);
+  background: var(--green-dim);
+  color: var(--green-bright);
+  transform: translate(1px, 1px);
+}
+
+.keys .op {
+  color: var(--green-bright);
+}
+
+.keys .mem,
+.keys .action {
+  color: var(--green-mid);
+}
+
+.keys .equals {
+  background: var(--green);
+  color: var(--black);
+  text-shadow: none;
+}
+
+.keys .equals:hover {
+  background: var(--green-bright);
+}
+
+.memory-flag {
+  display: grid;
+  place-items: center;
+  border: 2px solid;
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light)
+    var(--bevel-dark);
+  background: var(--black);
+  color: var(--green-bright);
+}
+
+.history[hidden] {
+  display: none;
+}
+
+.history ol {
+  list-style: none;
+  margin: 0;
+  padding: 10px 14px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.history li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--green-dim);
+  text-align: right;
+}
+
+.history li span {
+  display: block;
+  color: var(--green-mid);
+  font-size: 0.85em;
+}
+
+.history li strong {
+  font-weight: normal;
+  font-size: 1.3em;
+  color: var(--green-bright);
+}
+
+.history .empty {
+  margin: 0;
+  padding: 10px 14px 16px;
+  color: var(--green-mid);
+}
+
+.history .empty[hidden] {
+  display: none;
+}
+
+dialog.about {
+  width: min(90vw, 340px);
+}
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 60%);
+}
+
+.about-body {
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.about-body p {
+  margin: 0 0 12px;
+}
+
+.about-body .logo {
+  font-size: 1.6em;
+  color: var(--green-bright);
+}
+
+.about-body .small {
+  font-size: 0.85em;
+  color: var(--green-mid);
+}
+
+.about-body button {
+  min-width: 96px;
+}
+
+@media (max-width: 420px) {
+  html,
+  body {
+    font-size: 19px;
+  }
+
+  .desktop {
+    padding: 16px;
+  }
+
+  .keys {
+    gap: 6px;
+  }
+}
