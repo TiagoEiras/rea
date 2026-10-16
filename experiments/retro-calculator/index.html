@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora Retrô</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="crt">
+    <main class="desktop">
+      <section class="window" aria-label="Calculadora">
+        <header class="titlebar">
+          <span class="control-box" aria-hidden="true">─</span>
+          <h1>Calculadora</h1>
+          <span class="sizer" aria-hidden="true">▼</span>
+          <span class="sizer" aria-hidden="true">▲</span>
+        </header>
+
+        <nav class="menubar" aria-label="Menu">
+          <div class="menu">
+            <button
+              type="button"
+              class="menu-title"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <u>E</u>ditar
+            </button>
+            <div class="menu-items" role="menu" hidden>
+              <button type="button" role="menuitem" data-command="copy">
+                Copiar <kbd>Ctrl+C</kbd>
+              </button>
+              <button type="button" role="menuitem" data-command="paste">
+                Colar <kbd>Ctrl+V</kbd>
+              </button>
+            </div>
+          </div>
+          <div class="menu">
+            <button
+              type="button"
+              class="menu-title"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <u>E</u>xibir
+            </button>
+            <div class="menu-items" role="menu" hidden>
+              <button
+                type="button"
+                role="menuitemcheckbox"
+                aria-checked="false"
+                data-command="history"
+              >
+                Histórico <kbd>Ctrl+H</kbd>
+              </button>
+              <button
+                type="button"
+                role="menuitemcheckbox"
+                aria-checked="true"
+                data-command="crt"
+              >
+                Efeito CRT
+              </button>
+            </div>
+          </div>
+          <div class="menu">
+            <button
+              type="button"
+              class="menu-title"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <u>A</u>juda
+            </button>
+            <div class="menu-items" role="menu" hidden>
+              <button type="button" role="menuitem" data-command="about">
+                Sobre a Calculadora
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        <div class="body">
+          <output class="display" aria-live="polite">
+            <span class="expression" id="expression"></span>
+            <span class="value" id="value">0</span>
+          </output>
+
+          <div class="keys top">
+            <span class="memory-flag" id="memory-flag" title="Memória"
+              >&nbsp;</span
+            >
+            <button type="button" data-key="M-">M−</button>
+            <button type="button" data-key="sqr">x²</button>
+            <button type="button" data-key="back" class="action">Back</button>
+            <button type="button" data-key="CE" class="action">CE</button>
+            <button type="button" data-key="C" class="action">C</button>
+          </div>
+
+          <div class="keys grid">
+            <button type="button" data-key="MC" class="mem">MC</button>
+            <button type="button" data-key="7">7</button>
+            <button type="button" data-key="8">8</button>
+            <button type="button" data-key="9">9</button>
+            <button type="button" data-key="/" class="op">÷</button>
+            <button type="button" data-key="sqrt" class="op">√</button>
+
+            <button type="button" data-key="MR" class="mem">MR</button>
+            <button type="button" data-key="4">4</button>
+            <button type="button" data-key="5">5</button>
+            <button type="button" data-key="6">6</button>
+            <button type="button" data-key="*" class="op">×</button>
+            <button type="button" data-key="%" class="op">%</button>
+
+            <button type="button" data-key="MS" class="mem">MS</button>
+            <button type="button" data-key="1">1</button>
+            <button type="button" data-key="2">2</button>
+            <button type="button" data-key="3">3</button>
+            <button type="button" data-key="-" class="op">−</button>
+            <button type="button" data-key="inv" class="op">1/x</button>
+
+            <button type="button" data-key="M+" class="mem">M+</button>
+            <button type="button" data-key="0">0</button>
+            <button type="button" data-key="neg">+/−</button>
+            <button type="button" data-key=".">,</button>
+            <button type="button" data-key="+" class="op">+</button>
+            <button type="button" data-key="=" class="equals">=</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="window history" id="history" aria-label="Histórico" hidden>
+        <header class="titlebar"><h1>Histórico</h1></header>
+        <ol id="history-list"></ol>
+        <p class="empty" id="history-empty">Ainda não há histórico.</p>
+      </aside>
+    </main>
+
+    <dialog class="window about" id="about">
+      <header class="titlebar"><h1>Sobre</h1></header>
+      <div class="about-body">
+        <p class="logo">▓▒░ CALC ░▒▓</p>
+        <p>Calculadora Retrô 16 bits<br />Modo padrão, fósforo verde.</p>
+        <p class="small">Comportamento inspirado na análise REA do calc.exe.</p>
+        <form method="dialog"><button type="submit">OK</button></form>
+      </div>
+    </dialog>
+
+    <script src="calculator.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
